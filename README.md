@@ -113,7 +113,7 @@ pip install -r requirements.txt
 <br>
 
 ### **『main.py』**
-メインビューに対して、メイン処理のクラスと設定処理のクラスを渡しています。
+起動ファイルになります。MainScreenView.py を呼びます。
 
 <br>
 
