@@ -107,14 +107,15 @@ pip install -r requirements.txt
 <br>
 <br>
 
-# 【フォルダ説明】
+# 【ファイル・フォルダ説明】
 
-## 【Controller　フォルダ】
-<br>
 
 ### **『main.py』**
 起動ファイルになります。MainScreenView.py を呼びます。
 
+<br>
+
+## 【Controller　フォルダ】
 <br>
 
 ### **『main_screen.py』**
