@@ -68,7 +68,7 @@ class MainScreenViewClass(tkinter.Frame):
         Yahoo_goods_name_txt.pack(side="left", padx=20)
 
 
-        # 検索ボタン押したとき
+        # 検索ボタン押したときの処理
         def yahoo_goods_chenge_f(Yahoo_tree, Yahoo_goods_name_txt):
             goods_count, Yahoo_mean, Yahoo_Median = self.funcMain.Yahoo_goods_search_btn_f(Yahoo_tree, Yahoo_goods_name_txt)
             # ラベルの書き換え処理
