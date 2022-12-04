@@ -44,11 +44,10 @@ class MainScreenViewClass(tkinter.Frame):
         ウィジェットの配置　デザイン
         """
 
-
         # ロード画面用キャンパス
         self.anime_canvas = tkinter.Canvas(self, width=600, height=600, bg="white")
 
-       # ---------すべての親　フレーム
+        # ---------すべての親　フレーム
         self.Yahoo_ALL_frame = tkinter.Frame(self)
 
         # -----------上部フレーム
@@ -69,15 +68,25 @@ class MainScreenViewClass(tkinter.Frame):
         Yahoo_goods_name_txt.pack(side="left", padx=20)
 
 
+        # 検索ボタン押したとき
+        def yahoo_goods_chenge_f(Yahoo_tree, Yahoo_goods_name_txt):
+            goods_count, Yahoo_mean, Yahoo_Median = self.funcMain.Yahoo_goods_search_btn_f(Yahoo_tree, Yahoo_goods_name_txt)
+            # ラベルの書き換え処理
+            Yahoo_goods_count_label["text"] = goods_count# 総数
+            Yahoo_mean_label["text"] = Yahoo_mean # 小数点以下２まで切り捨て、金額の平均を入れる
+            Yahoo_Median_label["text"] = Yahoo_Median # 小数点以下２まで切り捨て、金額の中央値を入れる
+
         # 商品検索　ボタン
         Yahoo_goods_Search_btn = tkinter.Button(self.Yahoo_frame_upper, text='検索', width=6, height=1)
         # ウェブスクレイピング中はローディング画面を表示させる。
-        self.scraping_function = lambda: self.funcMain.Yahoo_goods_search_btn_f(Yahoo_tree, Yahoo_goods_name_txt, Yahoo_goods_count_label, Yahoo_mean_label, Yahoo_Median_label)
+        self.scraping_function = lambda: yahoo_goods_chenge_f(Yahoo_tree, Yahoo_goods_name_txt)
         Loading_C = LoadingViewClass(self.Yahoo_ALL_frame, self.anime_canvas, self.scraping_function)
         Yahoo_goods_Search_btn["command"] = lambda: Loading_C.start_loading_f()
         Yahoo_goods_Search_btn.pack(side="left")
         self.Yahoo_frame_upper.pack(ipady = 10)
         # -----------上部フレーム
+
+
 
 
         # -----------上部件数フレーム
@@ -370,7 +379,8 @@ class LoadingViewClass():
                 self.load_img_num += 1
 
             # ローディングアニメーションの画像を読み込み
-            load_jpeg = "./zjpeg_ghost/Ghost-{}.jpg".format(str(self.load_img_num))
+            load_jpeg = "./img/zjpeg_ghost/Ghost-{}.jpg".format(str(self.load_img_num))
+
             self.loading_img = Image.open(load_jpeg)
             im_resize = self.loading_img.resize(size=(140,140)) # サイズ変更
             self.loading_img = ImageTk.PhotoImage(im_resize) # Tkinter用の画像に変換
@@ -437,6 +447,8 @@ class LoadingViewClass():
 
 # フォルダ作成処理
 data_save.create_folder_f()
+#(Viewからはcontrollerの呼び出し)
+
 
 
 # メイン画面を表示する

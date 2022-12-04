@@ -52,21 +52,6 @@ class MainScreenProcessingClass():
             print("Treeが存在しない:あるいは原因不明のエラー発生")
             exit()
 
-    # 画面のラベル　総数・金額平均・金額中央値を計算して表示する処理
-    def total_scraping_list_count_f(self, Yahoo_goods_count_label, Yahoo_mean_label, Yahoo_Median_label):
-        """
-        画面のラベル　総数・金額平均・金額中央値を表示する処理
-        """
-
-        Yahoo_goods_count_label["text"] = str(len(self.Yahoo_scraping_list)) # 総数
-
-        # リストから金額だけを取得したリストを作成し、平均、中央値をそれぞれのラベルに入れる
-        price_list = [self.Yahoo_scraping_list[x][1] for x in range(len(self.Yahoo_scraping_list))]
-        price_numpylist = numpy.array(price_list)
-
-        Yahoo_mean_label["text"] = round(numpy.mean(price_numpylist), 1) # 小数点以下２まで切り捨て、金額の平均を入れる
-        Yahoo_Median_label["text"] = round(numpy.median(price_numpylist), 1) # 小数点以下２まで切り捨て、金額の中央値を入れる
-
     # 検索したYahooのページを開く
     def Yahoo_jumpURL_btn_f(self):
         """
@@ -78,9 +63,9 @@ class MainScreenProcessingClass():
             webbrowser.open(self.jumpURL, new=0, autoraise=True)
 
     # 『検索』ボタンを押したときの処理
-    def Yahoo_goods_search_btn_f(self, Yahoo_tree, Yahoo_goods_name_txt, Yahoo_goods_count_label, Yahoo_mean_label, Yahoo_Median_label):
+    def Yahoo_goods_search_btn_f(self, Yahoo_tree, Yahoo_goods_name_txt):
         """
-        『検索』ボタンを押したときの処理　webスクレイピングを行い、Treeに値を入れる。
+        １．『検索』ボタンを押したときの処理　webスクレイピングを行い、Treeに値を入れる。　２，中央値などの計算。
         """
         # 検索したグッズの名前を変数に記録
         self.serch_goods_name = Yahoo_goods_name_txt.get()
@@ -102,8 +87,12 @@ class MainScreenProcessingClass():
         # 一つ上のローカル変数に値を渡す
         self.Yahoo_scraping_list = scraping_list.values.tolist()
 
+        # リスト入れ直し
         self.tree_rebuild_f(Yahoo_tree)
-        self.total_scraping_list_count_f(Yahoo_goods_count_label, Yahoo_mean_label, Yahoo_Median_label)
+
+        # 中央値などの計算した結果を返す。
+        return WS.yahoo_calculation_f(self.Yahoo_scraping_list)
+
 
     # 『グラフボタン』を押したとき Treeのデータから棒グラフを作成
     def Yahoo_graph_btn_f(self, Yahoo_tree):
