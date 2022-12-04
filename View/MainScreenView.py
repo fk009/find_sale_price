@@ -370,7 +370,7 @@ class LoadingViewClass():
                 self.load_img_num += 1
 
             # ローディングアニメーションの画像を読み込み
-            load_jpeg = ".\yahoo_scraping_py/zjpeg_ghost/Ghost-{}.jpg".format(str(self.load_img_num))
+            load_jpeg = "./zjpeg_ghost/Ghost-{}.jpg".format(str(self.load_img_num))
             self.loading_img = Image.open(load_jpeg)
             im_resize = self.loading_img.resize(size=(140,140)) # サイズ変更
             self.loading_img = ImageTk.PhotoImage(im_resize) # Tkinter用の画像に変換
