@@ -1,13 +1,14 @@
-## Yahoo_scraping_py
+## find_sale_price
 
-
+「find out the sale price」
+(FOTSP)
 
 <br>
 
 ![pinterest_profile_image](https://user-images.githubusercontent.com/103634835/189520017-4690e695-ea0a-4e32-906a-84a834d46ddb.png)
 
 
-[![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://open.vscode.dev/｛fk009｝/{Yahoo_scraping_py})
+[![Open in Visual Studio Code](https://img.shields.io/static/v1?logo=visualstudiocode&label=&message=Open%20in%20Visual%20Studio%20Code&labelColor=2c2c32&color=007acc&logoColor=007acc)](https://open.vscode.dev/｛fk009｝/{find_sale_price})
 
 <br>
 <br>
@@ -111,11 +112,11 @@ pip install -r requirements.txt
 
 
 ### **『main.py』**
-起動ファイルになります。MainScreenView.py を呼びます。
+起動ファイルになります。main_screen_view.py を呼びます。
 
 <br>
 
-## 【Controller　フォルダ】
+## 【controller　フォルダ】
 <br>
 
 ### **『main_screen.py』**
@@ -131,11 +132,11 @@ pip install -r requirements.txt
 <br>
 <br>
 
-## 【View　フォルダ】
+## 【view　フォルダ】
 
 <br>
 
-### 『MainScreenView.py』
+### 『main_screen_view.py』
 
 メイン画面のデザインや、ウィジェットの配置に関するコードが記述されています。
 設定画面のデザインや、ウィジェットの配置に関するコードが記述されています。
@@ -144,7 +145,7 @@ pip install -r requirements.txt
 <br>
 <br>
 
-## 【Model　フォルダ】
+## 【model　フォルダ】
 
 ### 『data_save.py』
 

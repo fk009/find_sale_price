@@ -1,3 +1,13 @@
+"""Webスクレイピングに関連する処理のモジュール
+
+①中央値の計算処理
+②webから情報を取ってきて、リストを作成する処理
+
+Todo:
+    yahoo意外でも取得できるように、改良する？
+
+"""
+
 import time
 
 # サードパーティ
@@ -7,29 +17,44 @@ import requests # URLで指定したサイトのデータを取得
 import numpy # 計算など
 
 # 中央値などの計算処理
-def yahoo_calculation_f(Yahoo_scraping_list):
-    """
-    画面のラベル　総数・金額平均・金額中央値を計算する処理
+def yahoo_calculation_f(scraping_list):
+    """画面のラベル　総数・金額平均・金額中央値を計算する処理
+
+    Args:
+        scraping_list(list): webスクレイピングで取得したリスト。 タイトル、金額、タイムスタンプが入っている。
+    
+    Returns:
+        goods_count(str): 取得した商品の総数
+        mean(numpy.float64): 商品の金額の平均
+        Median(numpy.float64): 商品の金額の中央値
+
     """
 
     # リストから金額だけを取得したリストを作成し、平均、中央値をそれぞれのラベルに入れる
-    price_list = [Yahoo_scraping_list[x][1] for x in range(len(Yahoo_scraping_list))]
+    price_list = [scraping_list[x][1] for x in range(len(scraping_list))]
     price_numpylist = numpy.array(price_list)
 
-    Yahoo_mean = round(numpy.mean(price_numpylist), 1) # 小数点以下２まで切り捨て、金額の平均を入れる
-    Yahoo_Median = round(numpy.median(price_numpylist), 1) # 小数点以下２まで切り捨て、金額の中央値を入れる
+    mean = round(numpy.mean(price_numpylist), 1) # 小数点以下２まで切り捨て、金額の平均を入れる
+    Median = round(numpy.median(price_numpylist), 1) # 小数点以下２まで切り捨て、金額の中央値を入れる
 
-    goods_count = str(len(Yahoo_scraping_list)) # 総数
+    goods_count = str(len(scraping_list)) # 総数
 
-    return goods_count, Yahoo_mean, Yahoo_Median
+    return goods_count, mean, Median
 
 
-# webから情報を取ってきて、リストを作成する。 １．番号　２．値段　３．timestamp
+# webから情報を取ってきて、リストを作成する。 １．タイトル　２．値段　３．timestamp
 def yahoo_scraping_f(goods_name, state_num, godpage_num):
-    """
-    ヤフオクのwebから情報を取ってきてリストを作成
+    """ヤフオクのwebから情報を取ってきてリストを作成
 
-    １．番号　２．値段　３．timestamp
+    Args:
+        goods_name(str): 検索した商品名
+        state_num(int): 商品の状態（新品か中古か両方か）
+        godpage_num(int): 取得する商品数（１P = 100）
+
+    Returns:
+        Pand_data(pandas.core.frame.DataFrame): タイトル　２．値段　３．timestampが入ったリスト
+        JUMP_URL(str): スクレイピングに使用したサイトのURL
+
     """
     #-----------------------------------------
     goods_name_word = goods_name    # 商品の検索名
